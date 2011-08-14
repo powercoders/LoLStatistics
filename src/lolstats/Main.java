@@ -1,12 +1,21 @@
 package lolstats;
 
+import lolstats.data.PlayerInfo;
+import lolstats.data.PlayerStats;
+import lolstats.io.DataOperations;
+import lolstats.io.WebReader;
+import lolstats.util.Formatting;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+
 public class Main {
     public static WebReader webReader;
-    public static StringFormat stringFormat;
-    public static Stats st;
+    public static Formatting format;
+    public static PlayerInfo pi;
+    public static DataOperations dops;
+
     public static String summoners = "";
     public static String idSearchURL = "http://lolstatistics.com/search/ajax/?q=";
     public static String statSearchURL = "http://lolstatistics.com/player/na/";
@@ -19,13 +28,13 @@ public class Main {
             summoners = reader.readLine();
         } catch(Exception e) {}
         webReader = new WebReader(idSearchURL + summoners);
-        if(webReader.webData != null) {
-            stringFormat = new StringFormat(webReader.webData);
+        if(webReader.rawData != null) {
+            pi.pID = format.getID(webReader.rawData);
         }
-        if(stringFormat.fmt1 != null) {
-            webReader = new WebReader(statSearchURL + stringFormat.fmt1);
+        if(pi.pID != null) {
+            webReader = new WebReader(statSearchURL + pi.pID);
         }
 
-        st = new Stats(webReader.webData);
+        dops = new DataOperations(webReader.rawData);
     }
 }

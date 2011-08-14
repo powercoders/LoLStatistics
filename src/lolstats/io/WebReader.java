@@ -1,4 +1,4 @@
-package lolstats;
+package lolstats.io;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -8,14 +8,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class WebReader {
-    public String webData = "";
+    public String rawData = "";
 
     public WebReader(String url) {
         try {
             URL pageURL = new URL(url);
             HttpURLConnection urlConnection = (HttpURLConnection) pageURL.openConnection();
-            int respCode = urlConnection.getResponseCode();
-            String response = urlConnection.getResponseMessage();
             int count = 1;
             while (true) {
                 String header = urlConnection.getHeaderField(count);
@@ -30,9 +28,8 @@ public class WebReader {
             int c;
             System.out.println("Please wait downloading and structuring data.");
             while ((c = r.read()) != -1) {
-                webData = webData+String.valueOf((char) c);
+                rawData += String.valueOf((char) c);
             }
-            //System.out.println(webData);
         } catch (Exception ee) {
         }
 
