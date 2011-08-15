@@ -17,8 +17,7 @@ public class Main {
     public static DataOperations dops;
 
     public static String summoners = "";
-    public static String idSearchURL = "http://lolstatistics.com/search/ajax/?q=";
-    public static String statSearchURL = "http://lolstatistics.com/player/na/";
+    
 
     public static void main(String[] args) {
         System.out.print("Search Summoner's Stats: ");
